@@ -10,6 +10,16 @@
 SELECT *
 FROM czechia_payroll AS cp;
 
+/*
+ * calculation_code:
+ * 100	fyzický
+ * 200	přepočtený
+ * 
+ * value_type_code:
+ * 316	Průměrný počet zaměstnaných osob
+ * 5958	Průměrná hrubá mzda na zaměstnance
+*/
+
 SELECT *
 FROM czechia_payroll_calculation AS cpc;
 
