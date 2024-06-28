@@ -139,5 +139,53 @@ LEFT JOIN czechia_payroll_industry_branch AS cpib
 WHERE cp.value_type_code = 5958 AND cp.calculation_code  = 100 AND cp.industry_branch_code IS NULL
 GROUP BY cp.industry_branch_code, cp.payroll_year, cp.payroll_quarter;
 
+# přiřazení definic ke kódům do tabulky czechia_price - podrobná tabulka
 
-	
+SELECT
+	cp.id, cp.category_code, cpc.name AS category_name, cp.value,
+	cpc.price_value, cpc.price_unit, cp.date_from, cp.date_to,
+	COALESCE (cp.region_code, 'CZ0') AS region_code,
+	COALESCE (cr.name, 'Czechia') AS region_name,
+	YEAR(date_to) AS date_to_year,
+	CASE 
+		WHEN MONTH(date_to) BETWEEN 1 AND 3 THEN '1'
+		WHEN MONTH(date_to) BETWEEN 4 AND 6 THEN '2'
+		WHEN MONTH(date_to) BETWEEN 7 AND 9 THEN '3'
+		ELSE '4'
+	END AS date_to_quarter
+FROM czechia_price AS cp
+LEFT JOIN czechia_price_category AS cpc
+	ON cp.category_code = cpc.code
+LEFT JOIN czechia_region AS cr
+	ON cp.region_code = cr.code
+ORDER BY cp.category_code, cp.date_to, cp.region_code ASC;
+
+# přiřazení definic ke kódům do tabulky czechia_price - zjednodušená tabulka
+
+SELECT
+	YEAR(date_to) AS date_to_year,
+	CASE 
+		WHEN MONTH(date_to) BETWEEN 1 AND 3 THEN '1'
+		WHEN MONTH(date_to) BETWEEN 4 AND 6 THEN '2'
+		WHEN MONTH(date_to) BETWEEN 7 AND 9 THEN '3'
+		ELSE '4'
+	END AS date_to_quarter,
+	cp.category_code, cpc.name AS category_name, cp.value,
+	COALESCE (cp.region_code, 'CZ0') AS region_code,
+	COALESCE (cr.name, 'Czechia') AS region_name,
+	cpc.price_value, cpc.price_unit
+FROM czechia_price AS cp
+LEFT JOIN czechia_price_category AS cpc
+	ON cp.category_code = cpc.code
+LEFT JOIN czechia_region AS cr
+	ON cp.region_code = cr.code
+ORDER BY cp.category_code, cp.date_to, cp.region_code ASC;
+
+SELECT *
+FROM czechia_price_category AS cpcat;
+
+SELECT *
+FROM czechia_price AS cp;
+
+SELECT *
+FROM czechia_region AS cr;
