@@ -204,10 +204,12 @@ SELECT *
 FROM czechia_region AS cr;
 
 
-# ZKOUŠKA FINÁLNÍ TABULKY - propojení czechia_price a czechia_payroll
+# VYTVOŘENÍ DVOU TABULEK do mého localhost - czechia_payroll_edited a czechia_price_edited
 
-# přepočtená průměrná hrubá mzda na zaměstnance v Česku podle kvartálů jednotlivých let - zjednodušená tabulka
+# Vytvořena tabulka "czechia_payroll_edited"
+# Tabulka vytvořena z kódu, který byl pod názvem: přepočtená průměrná hrubá mzda na zaměstnance v Česku podle kvartálů jednotlivých let - zjednodušená tabulka
 
+CREATE TABLE czechia_payroll_edited AS
 SELECT
 	concat(cp.payroll_year, '_', cp.payroll_quarter, '_', 'CZ') AS year_quarter,
 	cp.payroll_year, cp.payroll_quarter, cp.value AS avg_salary, CONCAT(cpu.name, ' / ', 'měsíc') AS unit_name,
@@ -225,9 +227,10 @@ LEFT JOIN czechia_payroll_industry_branch AS cpib
 WHERE cp.value_type_code = 5958 AND cp.calculation_code  = 200 AND cp.industry_branch_code IS NULL
 GROUP BY cp.industry_branch_code, cp.payroll_year, cp.payroll_quarter;
 
+# Vytvořena tabulka "czechia_price_edited"
+# Tabulka vytvořena z kódu, který byl pod názvem: přiřazení definic ke kódům do tabulky czechia_price - zjednodušená tabulka
 
-# přiřazení definic ke kódům do tabulky czechia_price - zjednodušená tabulka
-
+CREATE TABLE czechia_price_edited AS
 SELECT
 	CONCAT(YEAR(date_to), '_',
 		CASE 
@@ -255,5 +258,6 @@ LEFT JOIN czechia_region AS cr
 	ON cp.region_code = cr.code
 ORDER BY cp.category_code, cp.date_to, cp.region_code ASC;
 
-
+SELECT *
+FROM czechia_price_edited AS cpe;
 
