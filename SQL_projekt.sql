@@ -90,10 +90,10 @@ WHERE cp.value_type_code = 5958 AND cp.calculation_code  = 200 AND cp.industry_b
 # přepočtená průměrná hrubá mzda na zaměstnance v Česku podle kvartálů jednotlivých let - podrobná tabulka (s kódy)
 
 SELECT
+	concat(cp.payroll_year, '_', cp.payroll_quarter) AS year_quarter, 
 	cp.payroll_year, cp.payroll_quarter, cp.value, cp.value_type_code, cpvt.name AS value_type_name,
 	cp.unit_code, cpu.name AS unit_name, cp.calculation_code, cpc.name AS calculation_name, 
-	cp.industry_branch_code, COALESCE (cpib.name, 'Czechia') AS industry_branch_name,
-	COALESCE (cp.industry_branch_code, 'CZ')
+	COALESCE (cp.industry_branch_code, 'CZ') AS industry_branch_code, COALESCE (cpib.name, 'Czechia') AS industry_branch_name
 FROM czechia_payroll AS cp
 LEFT JOIN czechia_payroll_value_type AS cpvt
 	ON cp.value_type_code = cpvt.code
@@ -109,8 +109,10 @@ GROUP BY cp.industry_branch_code, cp.payroll_year, cp.payroll_quarter;
 # přepočtená průměrná hrubá mzda na zaměstnance v Česku podle kvartálů jednotlivých let - zjednodušená tabulka
 
 SELECT
+	concat(cp.payroll_year, '_', cp.payroll_quarter) AS year_quarter,
 	cp.payroll_year, cp.payroll_quarter, cp.value AS avg_salary, CONCAT(cpu.name, ' / ', 'měsíc') AS unit_name,
-	cpvt.name AS value_type_name, cpc.name AS calculation_name
+	cpvt.name AS value_type_name, cpc.name AS calculation_name,
+	COALESCE (cp.industry_branch_code, 'CZ') AS industry_branch_code, COALESCE (cpib.name, 'Czechia') AS industry_branch_name
 FROM czechia_payroll AS cp
 LEFT JOIN czechia_payroll_value_type AS cpvt
 	ON cp.value_type_code = cpvt.code
@@ -120,14 +122,16 @@ LEFT JOIN czechia_payroll_calculation AS cpc
 	ON cp.calculation_code = cpc.code
 LEFT JOIN czechia_payroll_industry_branch AS cpib
 	ON cp.industry_branch_code = cpib.code
-WHERE cp.value_type_code = 5958 AND cp.calculation_code  = 200 AND cp.industry_branch_code IS NULL
+WHERE cp.value_type_code = 5958 AND cp.calculation_code  = 200
 GROUP BY cp.industry_branch_code, cp.payroll_year, cp.payroll_quarter;
 
 # průměrná hrubá mzda na zaměstnance (fyzické osoby) v Česku podle kvartálů jednotlivých let - zjednodušená tabulka
 
 SELECT
+	concat(cp.payroll_year, '_', cp.payroll_quarter) AS year_quarter,
 	cp.payroll_year, cp.payroll_quarter, cp.value AS avg_salary, CONCAT(cpu.name, ' / ', 'měsíc') AS unit_name,
-	cpvt.name AS value_type_name, cpc.name AS calculation_name
+	cpvt.name AS value_type_name, cpc.name AS calculation_name,
+	COALESCE (cp.industry_branch_code, 'CZ') AS industry_branch_code, COALESCE (cpib.name, 'Czechia') AS industry_branch_name
 FROM czechia_payroll AS cp
 LEFT JOIN czechia_payroll_value_type AS cpvt
 	ON cp.value_type_code = cpvt.code
@@ -137,7 +141,7 @@ LEFT JOIN czechia_payroll_calculation AS cpc
 	ON cp.calculation_code = cpc.code
 LEFT JOIN czechia_payroll_industry_branch AS cpib
 	ON cp.industry_branch_code = cpib.code
-WHERE cp.value_type_code = 5958 AND cp.calculation_code  = 100 AND cp.industry_branch_code IS NULL
+WHERE cp.value_type_code = 5958 AND cp.calculation_code  = 100
 GROUP BY cp.industry_branch_code, cp.payroll_year, cp.payroll_quarter;
 
 # přiřazení definic ke kódům do tabulky czechia_price - podrobná tabulka
@@ -164,6 +168,13 @@ ORDER BY cp.category_code, cp.date_to, cp.region_code ASC;
 # přiřazení definic ke kódům do tabulky czechia_price - zjednodušená tabulka
 
 SELECT
+	CONCAT(YEAR(date_to), '_',
+		CASE 
+			WHEN MONTH(date_to) BETWEEN 1 AND 3 THEN '1'
+			WHEN MONTH(date_to) BETWEEN 4 AND 6 THEN '2'
+			WHEN MONTH(date_to) BETWEEN 7 AND 9 THEN '3'
+			ELSE '4'
+		END) AS year_quarter,
 	YEAR(date_to) AS date_to_year,
 	CASE 
 		WHEN MONTH(date_to) BETWEEN 1 AND 3 THEN '1'
