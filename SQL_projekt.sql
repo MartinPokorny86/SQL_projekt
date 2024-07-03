@@ -204,7 +204,56 @@ SELECT *
 FROM czechia_region AS cr;
 
 
+# ZKOUŠKA FINÁLNÍ TABULKY - propojení czechia_price a czechia_payroll
 
+# přepočtená průměrná hrubá mzda na zaměstnance v Česku podle kvartálů jednotlivých let - zjednodušená tabulka
+
+SELECT
+	concat(cp.payroll_year, '_', cp.payroll_quarter, '_', 'CZ') AS year_quarter,
+	cp.payroll_year, cp.payroll_quarter, cp.value AS avg_salary, CONCAT(cpu.name, ' / ', 'měsíc') AS unit_name,
+	cpvt.name AS value_type_name, cpc.name AS calculation_name,
+	COALESCE (cp.industry_branch_code, 'CZ') AS industry_branch_code, COALESCE (cpib.name, 'Czechia') AS industry_branch_name
+FROM czechia_payroll AS cp
+LEFT JOIN czechia_payroll_value_type AS cpvt
+	ON cp.value_type_code = cpvt.code
+LEFT JOIN czechia_payroll_unit AS cpu
+	ON cp.unit_code = cpu.code
+LEFT JOIN czechia_payroll_calculation AS cpc
+	ON cp.calculation_code = cpc.code
+LEFT JOIN czechia_payroll_industry_branch AS cpib
+	ON cp.industry_branch_code = cpib.code
+WHERE cp.value_type_code = 5958 AND cp.calculation_code  = 200 AND cp.industry_branch_code IS NULL
+GROUP BY cp.industry_branch_code, cp.payroll_year, cp.payroll_quarter;
+
+
+# přiřazení definic ke kódům do tabulky czechia_price - zjednodušená tabulka
+
+SELECT
+	CONCAT(YEAR(date_to), '_',
+		CASE 
+			WHEN MONTH(date_to) BETWEEN 1 AND 3 THEN '1'
+			WHEN MONTH(date_to) BETWEEN 4 AND 6 THEN '2'
+			WHEN MONTH(date_to) BETWEEN 7 AND 9 THEN '3'
+			ELSE '4'
+		END, '_', 'CZ') AS year_quarter,
+	YEAR(date_to) AS date_to_year,
+	CASE 
+		WHEN MONTH(date_to) BETWEEN 1 AND 3 THEN '1'
+		WHEN MONTH(date_to) BETWEEN 4 AND 6 THEN '2'
+		WHEN MONTH(date_to) BETWEEN 7 AND 9 THEN '3'
+		ELSE '4'
+	END AS date_to_quarter,
+	cp.date_from, cp.date_to,
+	cp.category_code, cpc.name AS category_name, cp.value,
+	COALESCE (cp.region_code, 'CZ0') AS region_code,
+	COALESCE (cr.name, 'Czechia') AS region_name,
+	cpc.price_value, cpc.price_unit
+FROM czechia_price AS cp
+LEFT JOIN czechia_price_category AS cpc
+	ON cp.category_code = cpc.code
+LEFT JOIN czechia_region AS cr
+	ON cp.region_code = cr.code
+ORDER BY cp.category_code, cp.date_to, cp.region_code ASC;
 
 
 
