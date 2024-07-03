@@ -224,7 +224,7 @@ LEFT JOIN czechia_payroll_calculation AS cpc
 	ON cp.calculation_code = cpc.code
 LEFT JOIN czechia_payroll_industry_branch AS cpib
 	ON cp.industry_branch_code = cpib.code
-WHERE cp.value_type_code = 5958 AND cp.calculation_code  = 200 AND cp.industry_branch_code IS NULL
+WHERE cp.value_type_code = 5958 AND cp.calculation_code  = 200 AND cp.industry_branch_code IS NULL # tj. výběr mzdy za celé Česko, ne v rozdělení dle odvětví
 GROUP BY cp.industry_branch_code, cp.payroll_year, cp.payroll_quarter;
 
 # Vytvořena tabulka "czechia_price_edited"
@@ -258,6 +258,22 @@ LEFT JOIN czechia_region AS cr
 	ON cp.region_code = cr.code
 ORDER BY cp.category_code, cp.date_to, cp.region_code ASC;
 
-SELECT *
-FROM czechia_price_edited AS cpe;
 
+# výpočet cenové dostupnosti potravin z přepočtené průměrné hrubé mzdy na zaměstnance v Česku celkem podle kvartálů jednotlivých let
+
+SELECT *
+FROM czechia_payroll_edited AS cpae;
+
+SELECT *
+FROM czechia_price_edited AS cpre;
+
+SELECT
+	cpre.year_quarter, cpre.date_from, cpre.date_to,
+	cpre.category_code, cpre.category_name, cpre.value,
+	cpre.region_code, cpre.region_name, cpre.price_value,
+	cpre.price_unit, cpae.avg_salary, cpae.unit_name,
+	cpae.value_type_name, cpae.calculation_name,
+	ROUND ((cpre.value / cpae.avg_salary) *100 , 3) AS food_affordability_percent
+FROM czechia_price_edited AS cpre
+LEFT JOIN czechia_payroll_edited AS cpae
+	ON cpre.year_quarter = cpae.year_quarter;
