@@ -170,6 +170,7 @@ SELECT
 		WHEN MONTH(date_to) BETWEEN 7 AND 9 THEN '3'
 		ELSE '4'
 	END AS date_to_quarter,
+	cp.date_from, cp.date_to,
 	cp.category_code, cpc.name AS category_name, cp.value,
 	COALESCE (cp.region_code, 'CZ0') AS region_code,
 	COALESCE (cr.name, 'Czechia') AS region_name,
