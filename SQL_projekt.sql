@@ -259,7 +259,7 @@ LEFT JOIN czechia_region AS cr
 ORDER BY cp.category_code, cp.date_to, cp.region_code ASC;
 
 
-# výpočet cenové dostupnosti potravin z přepočtené průměrné hrubé mzdy na zaměstnance v Česku celkem podle kvartálů jednotlivých let
+# výpočet cenové dostupnosti potravin z přepočtené průměrné hrubé mzdy na zaměstnance v Česku celkem za období let 2006 - 2018 (čtvrtletně)
 
 SELECT *
 FROM czechia_payroll_edited AS cpae;
@@ -277,3 +277,75 @@ SELECT
 FROM czechia_price_edited AS cpre
 LEFT JOIN czechia_payroll_edited AS cpae
 	ON cpre.year_quarter = cpae.year_quarter;
+
+/*
+ * Otázka č. 1: Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
+ * Řešení - tabulka A: Průměrné přepočtené hrubé mzdy na zaměstnance v průběhu let v odvětvích většinou rostou, nicméně není tomu tak vždy. 
+ * Například v odvětví Těžby a dobývání klesla v roce 2013 mzda oproti roku 2012 o 1 053 Kč/měsíc, (tj. z 32 540 Kč/měsíc na 31 487 Kč/měsíc).
+ * K významnému poklesu došlo v odvětví D. Výroba a rozvod elektřiny mezi roky 2012 a 2013 (z 42 657 Kč/měsíc v roce 2012 na 40 762 Kč/měsíc v roce 2013).
+ * 
+ * V tabulce B jsou uvedeny změny mezd podle čtvrtletí v jednotlivých odvětvích, kde je patrná větší dynamika mezičtvrtletních změn výše mezd
+ */
+
+
+# Tabulka A: přepočtená průměrná hrubá mzda na zaměstnance v Česku podle jednotlivých let - zjednodušená tabulka
+
+SELECT
+	cp.payroll_year,
+	COALESCE (cp.industry_branch_code, 'CZ') AS industry_branch_code, COALESCE (cpib.name, 'Czechia') AS industry_branch_name,
+	ROUND(AVG(cp.value),0) AS avg_salary, CONCAT(cpu.name, ' / ', 'měsíc') AS unit_name,
+	cpvt.name AS value_type_name, cpc.name AS calculation_name
+FROM czechia_payroll AS cp
+LEFT JOIN czechia_payroll_value_type AS cpvt
+	ON cp.value_type_code = cpvt.code
+LEFT JOIN czechia_payroll_unit AS cpu
+	ON cp.unit_code = cpu.code
+LEFT JOIN czechia_payroll_calculation AS cpc
+	ON cp.calculation_code = cpc.code
+LEFT JOIN czechia_payroll_industry_branch AS cpib
+	ON cp.industry_branch_code = cpib.code
+WHERE cp.value_type_code = 5958 AND cp.calculation_code  = 200
+GROUP BY cp.industry_branch_code, cp.payroll_year;
+
+
+# Tabulka B: přepočtená průměrná hrubá mzda na zaměstnance v Česku podle čtvrtletí jednotlivých let - zjednodušená tabulka
+
+SELECT
+	CONCAT(cp.payroll_year, '_', cp.payroll_quarter) AS year_quarter,
+	COALESCE (cp.industry_branch_code, 'CZ') AS industry_branch_code, COALESCE (cpib.name, 'Czechia') AS industry_branch_name,
+	cp.value AS avg_salary, CONCAT(cpu.name, ' / ', 'měsíc') AS unit_name,
+	cpvt.name AS value_type_name, cpc.name AS calculation_name,
+	((LEAD(cp.value, 1) OVER (ORDER BY cp.id) / cp.value) * 100) - 100 AS next_vs_previous_pct
+FROM czechia_payroll AS cp
+LEFT JOIN czechia_payroll_value_type AS cpvt
+	ON cp.value_type_code = cpvt.code
+LEFT JOIN czechia_payroll_unit AS cpu
+	ON cp.unit_code = cpu.code
+LEFT JOIN czechia_payroll_calculation AS cpc
+	ON cp.calculation_code = cpc.code
+LEFT JOIN czechia_payroll_industry_branch AS cpib
+	ON cp.industry_branch_code = cpib.code
+WHERE cp.value_type_code = 5958 AND cp.calculation_code  = 200
+GROUP BY cp.industry_branch_code, cp.payroll_year, cp.payroll_quarter;
+
+/*
+ * Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
+ */
+
+# category_code
+# 114 201 - mléko polotučné pasterované
+# 111 301 - chléb konzumní kmínový
+
+
+
+SELECT
+	cpre.year_quarter, cpre.date_from, cpre.date_to,
+	cpre.category_code, cpre.category_name, cpre.value,
+	cpre.region_code, cpre.region_name, cpre.price_value,
+	cpre.price_unit, cpae.avg_salary, cpae.unit_name,
+	cpae.value_type_name, cpae.calculation_name,
+	ROUND ((cpre.value / cpae.avg_salary) *100 , 3) AS food_affordability_percent
+FROM czechia_price_edited AS cpre
+LEFT JOIN czechia_payroll_edited AS cpae
+	ON cpre.year_quarter = cpae.year_quarter
+WHERE cpre.category_code = 114201 OR cpre.category_code = 111301 AND cpre.date_to = '2018-11-18 00:00:00.000';
