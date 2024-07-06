@@ -70,7 +70,7 @@ LEFT JOIN czechia_payroll_calculation AS cpc
 LEFT JOIN czechia_payroll_industry_branch AS cpib
 	ON cpay.industry_branch_code = cpib.code;
 
-# přepočtená průměrná hrubá mzda na zaměstnance ve vybraném sektoru a roce - pouze pro kontrolu dat
+# přepočtená průměrná hrubá mzda na zaměstnance v Česku ve vybraném sektoru a roce - pouze pro kontrolu dat
 
 SELECT
 	cpay.id, cpay.value, cpay.value_type_code, cpvt.name AS value_type_name,
@@ -87,7 +87,7 @@ LEFT JOIN czechia_payroll_industry_branch AS cpib
 	ON cpay.industry_branch_code = cpib.code
 WHERE cpay.value_type_code = 5958 AND cpay.calculation_code  = 200 AND cpay.industry_branch_code = "E" AND cpay.payroll_year = "2021";
 
-# přepočtená průměrná hrubá mzda na zaměstnance v Česku podle kvartálů jednotlivých let - podrobná tabulka (s kódy)
+# přepočtená průměrná hrubá mzda na zaměstnance v Česku podle čtvrtletí jednotlivých let - podrobná tabulka (s kódy)
 
 SELECT
 	concat(cpay.payroll_year, '_', cpay.payroll_quarter) AS year_quarter, 
@@ -194,6 +194,9 @@ LEFT JOIN czechia_region AS cr
 	ON cpay.region_code = cr.code
 ORDER BY cpay.category_code, cpay.date_to, cpay.region_code ASC;
 
+
+# dílčí zdrojové tabulky
+
 SELECT *
 FROM czechia_price_category AS cpcat;
 
@@ -295,7 +298,7 @@ FROM countries AS c;
 SELECT *
 FROM economies AS e;
 
-# finální verze tabulky "t_Martin_Pokorny_project_SQL_secondary_final":
+# finální verze pohledu "t_Martin_Pokorny_project_SQL_secondary_final":
 
 SELECT
 	e.`year`, e.country, c.continent, e.GDP, e.gini, e.population
