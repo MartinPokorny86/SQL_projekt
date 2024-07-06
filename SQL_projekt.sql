@@ -259,7 +259,11 @@ LEFT JOIN czechia_region AS cr
 ORDER BY cp.category_code, cp.date_to, cp.region_code ASC;
 
 
-# výpočet cenové dostupnosti potravin z přepočtené průměrné hrubé mzdy na zaměstnance v Česku celkem za období let 2006 - 2018 (čtvrtletně)
+
+/*
+ * Tabulka 1: t_Martin_Pokorny_project_SQL_primary_final
+ * Výpočet cenové dostupnosti potravin z přepočtené průměrné hrubé mzdy na zaměstnance v Česku celkem za období let 2006 - 2018 (čtvrtletně)
+ */
 
 SELECT *
 FROM czechia_payroll_edited AS cpae;
@@ -277,6 +281,29 @@ SELECT
 FROM czechia_price_edited AS cpre
 LEFT JOIN czechia_payroll_edited AS cpae
 	ON cpre.year_quarter = cpae.year_quarter;
+
+/*
+ * Tabulka 2: t_Martin_Pokorny_project_SQL_secondary_final
+ * Evropské státy podle základních ukazatelů: HDP, GINI koeficient, populace za období let 2006 - 2018
+ */
+
+# zdrojové datové sady
+
+SELECT *
+FROM countries AS c;
+
+SELECT *
+FROM economies AS e;
+
+# finální verze tabulky "t_Martin_Pokorny_project_SQL_secondary_final":
+
+SELECT
+	e.`year`, e.country, c.continent, e.GDP, e.gini, e.population
+FROM economies AS e
+LEFT JOIN countries AS c
+	ON e.country = c.country
+WHERE c.continent = 'Europe' AND e.`year` BETWEEN 2006 AND 2018
+ORDER BY e.`year` ASC, e.country ASC;
 
 
 /*
