@@ -60,6 +60,12 @@ ORDER BY cp.category_code, cp.date_to, cp.region_code ASC;
  * Výpočet cenové dostupnosti potravin z přepočtené průměrné hrubé mzdy na zaměstnance v Česku celkem za období let 2006 - 2018 (čtvrtletně)
  */
 
+SELECT *
+FROM czechia_payroll_edited AS cpae;
+
+SELECT *
+FROM czechia_price_edited AS cpre;
+
 
 CREATE TABLE t_Martin_Pokorny_project_SQL_primary_final AS 
 SELECT
