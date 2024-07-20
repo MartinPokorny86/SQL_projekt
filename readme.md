@@ -68,7 +68,7 @@ Následují odpovědi na pět otázek, které byly součástí zadání. V rámc
 
 *Otázka č. 5: Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výrazněji v jednom roce, projeví se to na cenách potravin či mzdách ve stejném nebo následujícím roce výraznějším růstem?*
 
-_Řešení: Vliv HDP na změny ve mzdách_
+Vliv HDP na změny ve mzdách
 
     Největší nárůst HDP v Česku byl v období let 2000 až 2020 zaznamenán mezi roky 2006 a 2005, kdy se v roce 2006 zvýšilo HDP oproti předchozímu roku o 6,8 %. Mzdy se v roce 2006 zvýšily o 6,5 % oproti roku 2005.
 
@@ -78,7 +78,7 @@ _Řešení: Vliv HDP na změny ve mzdách_
 
     Závěrem lze říci, že výraznější růst HDP nemá pravidelný vliv na výrazný růst mezd.
 
-_Řešení: Vliv HDP na změny v cenách potravin_
+Vliv HDP na změny v cenách potravin
 
     Z finální tabulky, kterou jsem použil ve třetí otázce, je patrné, že nejmenší meziroční růst cen byl zaznamenán u rajských jablek červených kulatých. V roce 2007 došlo ke snížení jejich ceny oproti roku 2006 o 30,3 %. 
 
