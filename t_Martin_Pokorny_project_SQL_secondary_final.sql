@@ -13,6 +13,7 @@ FROM economies AS e;
 
 # finální verze pohledu "t_Martin_Pokorny_project_SQL_secondary_final":
 
+CREATE TABLE t_Martin_Pokorny_project_SQL_secondary_final AS
 SELECT
 	e.`year`, e.country, c.continent, e.GDP, e.gini, e.population
 FROM economies AS e
