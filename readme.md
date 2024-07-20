@@ -34,11 +34,9 @@ Veškeré kroky vytváření pohledů dat a tabulek jsou uvedené v souboru
     B. Vytvořena nová tabulka "czechia_price_edited" s aliasem cpre
         - tabulka vytvořena z kódu evidovaného pod názvem "Přiřazení definic ke kódům do tabulky czechia_price - zjednodušená tabulka"
 
-6. Vytvořen pohled na data z nových tabulek "czechia_payroll_edited" a "czechia_price_edited". 
+6. Na GitHubu vytvořen soubor "t_Martin_Pokorny_project_SQL_primary_final". Pomocí kódu _create table_ vytvořena Tabulka 1: "t_Martin_Pokorny_project_SQL_primary_final", pomocí které získáme přehled dat o výpočtu cenové dostupnosti potravin z přepočtené průměrné hrubé mzdy na zaměstnance v Česku celkem za období let 2006 - 2018 (čtvrtletně).
 
-Pomocí kódu _create table_ vytvořena "Tabulka 1: t_Martin_Pokorny_project_SQL_primary_final", pomocí které získáme přehled dat o výpočtu cenové dostupnosti potravin z přepočtené průměrné hrubé mzdy na zaměstnance v Česku celkem za období let 2006 - 2018 (čtvrtletně).
-
-Pomocí kódu _create table_ vytvořena "Tabulka 2: t_Martin_Pokorny_project_SQL_secondary_final", pomocí které se zobrazí seznam evropských států podle základních ukazatelů (HDP, GINI koeficient, populace) za období let 2006 - 2018.
+7. Na GitHubu vytvořen soubor "t_Martin_Pokorny_project_SQL_secondary_final". Pomocí kódu _create table_ vytvořena Tabulka 2: "t_Martin_Pokorny_project_SQL_secondary_final", pomocí které se zobrazí seznam evropských států podle základních ukazatelů (HDP, GINI koeficient, populace) za období let 2006 - 2018.
 
 Následují odpovědi na pět otázek, které byly součástí zadání. V rámci jednotlivých řešení jsou k dispozici potřebné pohledy na data, díky kterým mohly být otázky zodpovězeny. Ke každé otázce byl vytvořen sql soubor s podkladovými kódy:
 
