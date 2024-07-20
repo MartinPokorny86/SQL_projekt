@@ -37,7 +37,7 @@ Poté následují odpovědi na jednotlivé otázky. Pro každou odpověď byl vy
         B. tabulka "czechia_price_edited" s aliasem cpre
         - vytvořena z kódu evidovaného pod názvem "Přiřazení definic ke kódům do tabulky czechia_price - zjednodušená tabulka"
     
-        C. pomocí kódu "create table" vytvořena Tabulka 1: "t_Martin_Pokorny_project_SQL_primary_final", na základě které získáme přehled dat o výpočtu cenové dostupnosti potravin z přepočtené průměrné hrubé mzdy na zaměstnance v Česku celkem za období let 2006 - 2018 (čtvrtletně).
+    Pomocí kódu "create table" vytvoříme Tabulku 1: "t_Martin_Pokorny_project_SQL_primary_final", na základě které získáme přehled dat o výpočtu cenové dostupnosti potravin z přepočtené průměrné hrubé mzdy na zaměstnance v Česku celkem za období let 2006 - 2018 (čtvrtletně).
 
 6. Na GitHubu vytvořen soubor "t_Martin_Pokorny_project_SQL_secondary_final". Pomocí kódu _create table_ vytvořena Tabulka 2: "t_Martin_Pokorny_project_SQL_secondary_final", pomocí které se zobrazí seznam evropských států podle základních ukazatelů (HDP, GINI koeficient, populace) za období let 2006 - 2018.
 
