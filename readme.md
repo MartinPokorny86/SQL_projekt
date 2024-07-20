@@ -1,7 +1,8 @@
 # 4. projekt: SQL
 
-Veškeré kroky vytváření pohledů dat a tabulek jsou uvedené v souboru
-"SQL_projekt.sql", kam jsem průběžně ukládal záznamy změn (commits) pomocí Gitu na GitHub.
+Součástí souboru "SQL_projekt.sql" jsou kódy v rámci níže popsaných kroků č. 1-4.
+V kroku 5 byla vytvořena primární tabulka, v kroku 6 sekundární tabulka.
+Poté následují odpovědi na jednotlivé otázky. Pro každou odpověď byl vytvořen soubor s označením čísla otázky.
 
 ## Postup vytváření projektu SQL - popis dílčích kroků
 
@@ -26,17 +27,19 @@ Veškeré kroky vytváření pohledů dat a tabulek jsou uvedené v souboru
 
 4. Přiřazení definic ke kódům do tabulky czechia_price - podrobná a zjednodušená tabulka
 
-5. Vytvoření dvou tabulek do localhostu (pro lepší čitelost kódu v tabulce t_Martin_Pokorny_project_SQL_primary_final)
+5. Na GitHubu vytvořen soubor "t_Martin_Pokorny_project_SQL_primary_final". 
 
-    A. Vytvořena nová tabulka "czechia_payroll_edited" s aliasem cpae
-        - tabulka vytvořena z kódu evidovaného pod názvem "Přepočtená průměrná hrubá mzda na zaměstnance v Česku podle kvartálů jednotlivých let - zjednodušená tabulka"
+    Pro lepší čitelost kódu tabulky t_Martin_Pokorny_project_SQL_primary_final je potřeba vytvořit dvě tabulky do localhostu:
+
+        A. tabulka "czechia_payroll_edited" s aliasem cpae
+        - vytvořena z kódu evidovaného pod názvem "Přepočtená průměrná hrubá mzda na zaměstnance v Česku podle kvartálů jednotlivých let - zjednodušená tabulka"
     
-    B. Vytvořena nová tabulka "czechia_price_edited" s aliasem cpre
-        - tabulka vytvořena z kódu evidovaného pod názvem "Přiřazení definic ke kódům do tabulky czechia_price - zjednodušená tabulka"
+        B. tabulka "czechia_price_edited" s aliasem cpre
+        - vytvořena z kódu evidovaného pod názvem "Přiřazení definic ke kódům do tabulky czechia_price - zjednodušená tabulka"
+    
+        C. pomocí kódu "create table" vytvořena Tabulka 1: "t_Martin_Pokorny_project_SQL_primary_final", na základě které získáme přehled dat o výpočtu cenové dostupnosti potravin z přepočtené průměrné hrubé mzdy na zaměstnance v Česku celkem za období let 2006 - 2018 (čtvrtletně).
 
-6. Na GitHubu vytvořen soubor "t_Martin_Pokorny_project_SQL_primary_final". Pomocí kódu _create table_ vytvořena Tabulka 1: "t_Martin_Pokorny_project_SQL_primary_final", pomocí které získáme přehled dat o výpočtu cenové dostupnosti potravin z přepočtené průměrné hrubé mzdy na zaměstnance v Česku celkem za období let 2006 - 2018 (čtvrtletně).
-
-7. Na GitHubu vytvořen soubor "t_Martin_Pokorny_project_SQL_secondary_final". Pomocí kódu _create table_ vytvořena Tabulka 2: "t_Martin_Pokorny_project_SQL_secondary_final", pomocí které se zobrazí seznam evropských států podle základních ukazatelů (HDP, GINI koeficient, populace) za období let 2006 - 2018.
+6. Na GitHubu vytvořen soubor "t_Martin_Pokorny_project_SQL_secondary_final". Pomocí kódu _create table_ vytvořena Tabulka 2: "t_Martin_Pokorny_project_SQL_secondary_final", pomocí které se zobrazí seznam evropských států podle základních ukazatelů (HDP, GINI koeficient, populace) za období let 2006 - 2018.
 
 Následují odpovědi na pět otázek, které byly součástí zadání. V rámci jednotlivých řešení jsou k dispozici potřebné pohledy na data, díky kterým mohly být otázky zodpovězeny. Ke každé otázce byl vytvořen sql soubor s podkladovými kódy:
 
