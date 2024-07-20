@@ -56,16 +56,12 @@ LEFT JOIN czechia_region AS cr
 ORDER BY cp.category_code, cp.date_to, cp.region_code ASC;
 
 /*
- * Kód "t_Martin_Pokorny_project_SQL_primary_final"
+ * Vytvoření tabulky "t_Martin_Pokorny_project_SQL_primary_final"
  * Výpočet cenové dostupnosti potravin z přepočtené průměrné hrubé mzdy na zaměstnance v Česku celkem za období let 2006 - 2018 (čtvrtletně)
  */
 
-SELECT *
-FROM czechia_payroll_edited AS cpae;
 
-SELECT *
-FROM czechia_price_edited AS cpre;
-
+CREATE TABLE t_Martin_Pokorny_project_SQL_primary_final AS 
 SELECT
 	cpre.year_quarter, cpre.date_from, cpre.date_to,
 	cpre.category_code, cpre.category_name, cpre.value,
