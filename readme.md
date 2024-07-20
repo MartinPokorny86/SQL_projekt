@@ -50,7 +50,7 @@ Následují odpovědi na pět otázek, které byly součástí zadání. V rámc
 
     V tabulce B jsou uvedeny změny mezd podle čtvrtletí v jednotlivých odvětvích, kde je patrná větší dynamika mezičtvrtletních změn výše mezd.
 
-    *Otázka č. 2: Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?*
+*Otázka č. 2: Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?*
 
     Řešení: Sledované období je 16.12.2018 a 16.12.2007. Výsledky kupní síly vychází z přepočtené průměrné hrubé mzdy na zaměstnance v Česku.
 
@@ -58,17 +58,17 @@ Následují odpovědi na pět otázek, které byly součástí zadání. V rámc
 
     Mléko polotučné pasterované ve sledovaném období podražilo o 1,63 Kč. Zatímco v polovině prosince roku 2007 stál litr mléka 17,92 Kč, o jedenáct let později byla cena litru mléka ve stejném období ve výši 19,55 Kč. Kupní síla se 16.12.2018 oproti 16.12.2007 zvýšila o téměř 480 litrů a kupující si tak mohl v roce 2018 zakoupit ze své mzdy 1 742,05 litrů mléka, ve stejném období roku 2007 si kupující mohl zakoupit 1 263,45 litrů mléka.
 
-    *Otázka č. 3: Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroční nárůst)?*
+*Otázka č. 3: Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroční nárůst)?*
 
     Řešení: Nejpomaleji zdražovala v roce 2007 rajská jablka červená kulatá, jelikož oproti roku 2006 zlevnila o 30 % na 40,32 Kč/kg (jejich cena byla v roce 2006 ve výši 57,83 Kč/kg)
 
-    *Otázka č. 4: Existuje rok, ve kterém byl meziroční nárůst cen potravin výrazně vyšší než růst mezd (větší než 10 %)?*
+*Otázka č. 4: Existuje rok, ve kterém byl meziroční nárůst cen potravin výrazně vyšší než růst mezd (větší než 10 %)?*
 
     Řešení: Ano, z upravené tabulky z předchozí otázky najdeme některé kategorie potravin, jejichž cena rostla meziročně více jak o 10 % a zároveň byl trend růstu cen vyšší než růst mezd, jejichž výše za sledované období nepřekročila hranici 9 % (viz upravená tabulka B z řešení první otázky).
 
     Nejvyšší nárůst cen, téměř o 95 %, byl zaznamenán u kategorie potravin "papriky". V roce 2006 byla cena paprik 35,31 Kč/kg, v roce 2007 cena činila 68,79 Kč/kg.
 
-    *Otázka č. 5: Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výrazněji v jednom roce, projeví se to na cenách potravin či mzdách ve stejném nebo následujícím roce výraznějším růstem?*
+*Otázka č. 5: Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výrazněji v jednom roce, projeví se to na cenách potravin či mzdách ve stejném nebo následujícím roce výraznějším růstem?*
 
     Řešení: 
 
